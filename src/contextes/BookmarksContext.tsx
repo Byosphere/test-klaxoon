@@ -5,12 +5,14 @@ interface BookmarksContextProps {
     bookmarksList: Bookmark[];
     addElement: (el: Bookmark) => void;
     removeElement: (id: number) => void;
+    updateTags: (id: number, tags: string) => void;
 }
 
 const BookmarksContext = createContext<BookmarksContextProps>({
     bookmarksList: [],
     addElement: () => undefined,
-    removeElement: () => undefined
+    removeElement: () => undefined,
+    updateTags: () => undefined
 });
 
 interface Props {
@@ -35,7 +37,7 @@ export function BookmarksContextProvider({ children }: Props) {
             ...bookmarksList,
             {
                 ...el,
-                id: newId,
+                id: newId+1,
                 addedDate: new Date()
             }
         ]);
@@ -45,8 +47,16 @@ export function BookmarksContextProvider({ children }: Props) {
         setBookmarksList([...bookmarksList.filter((el) => el.id !== id)]);
     }, [bookmarksList]);
 
+    const updateTags = useCallback((id: number, tags: string) => {
+        let editedElement = bookmarksList.find((b) => b.id === id);
+        if (editedElement) {
+            editedElement.desc = tags;
+        }
+        setBookmarksList([...bookmarksList]);
+    }, [bookmarksList]);
+
     return (
-        <BookmarksContext.Provider value={{ bookmarksList, addElement, removeElement }}>
+        <BookmarksContext.Provider value={{ bookmarksList, addElement, removeElement, updateTags }}>
             {children}
         </BookmarksContext.Provider>
     )

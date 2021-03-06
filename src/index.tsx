@@ -10,7 +10,6 @@ import i18n from "i18next";
 import { initReactI18next } from "react-i18next";
 import Backend from 'i18next-http-backend';
 import LanguageDetector from 'i18next-browser-languagedetector';
-import Loader from './components/loader/Loader';
 
 i18n
     .use(Backend)
@@ -27,7 +26,7 @@ i18n
 ReactDOM.render(
     <React.StrictMode>
         <ThemeProvider theme={theme}>
-            <Suspense fallback={<Loader />}>
+            <Suspense fallback={'loading...'}>
                 <BookmarksContextProvider>
                     <CssBaseline />
                     <App />

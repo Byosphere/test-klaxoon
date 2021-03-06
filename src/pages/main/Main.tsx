@@ -12,7 +12,7 @@ import { useStyles } from './styles';
 export default function Main() {
 
     const classes = useStyles();
-    const { bookmarksList, removeElement } = useContext(BookmarksContext);
+    const { bookmarksList, removeElement, updateTags } = useContext(BookmarksContext);
     const [editingBookmark, setEditingBookmark] = useState<Bookmark | undefined>();
     const [page, setPage] = useState<number>(0);
     const { t } = useTranslation();
@@ -34,7 +34,12 @@ export default function Main() {
     }
 
     function handleSave(bookmark?: Bookmark) {
-
+        if (bookmark) {
+            updateTags(bookmark.id, bookmark.desc || '');
+            setEditingBookmark(undefined);
+        } else {
+            setEditingBookmark(undefined);
+        }
     }
 
     return (
@@ -50,11 +55,13 @@ export default function Main() {
                     </AccordionSummary>
                     <Typography className={classes.date} component='div' variant='caption'>{bookmark.addedDate.toLocaleString()}</Typography>
                     <a className={classes.link} href={bookmark.url}>{bookmark.url}</a>
-                    {bookmark.desc && <Typography className={classes.tagList}><b>Tags :</b> {bookmark.desc?.split(',').map((s, k) => <Chip key={k} label={s} className={classes.chip} />)}</Typography>}
+                    {bookmark.desc && <Typography component='div' className={classes.tagList}>
+                        <b>{t('tags')} :</b> {bookmark.desc?.split(',').map((s, k) => <Chip key={k} label={s.trim()} className={classes.chip} />)}
+                        </Typography>}
                     <AccordionDetails className={classes.details}>
-                        <Typography><b>Largeur :</b> {bookmark.width}px</Typography>
-                        <Typography><b>hauteur :</b> {bookmark.height}px</Typography>
-                        {bookmark.type === 'video' && <Typography><b>durée :</b> {bookmark.duration}s</Typography>}
+                        <Typography><b>{t('largeur')} :</b> {bookmark.width}px</Typography>
+                        <Typography><b>{t('hauteur')} :</b> {bookmark.height}px</Typography>
+                        {bookmark.type === 'video' && <Typography><b>{t('duree')} :</b> {bookmark.duration}s</Typography>}
                     </AccordionDetails>
                     <Divider />
                     <AccordionActions>

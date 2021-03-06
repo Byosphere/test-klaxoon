@@ -1,3 +1,19 @@
 {
-    "maintitle": "Gestionnaire de marque-pages"
+    "maintitle": "Gestionnaire de marque-pages",
+    "addlink": "Ajouter un marque-page",
+    "edit": "Modifier",
+    "delete": "Supprimer",
+    "tags": "Tags",
+    "largeur": "Largeur",
+    "hauteur": "Hauteur",
+    "duree": "duree",
+    "edittitle": "Modifier les tags du marque-page",
+    "editinfo": "Séparer chaque tag par une virgule",
+    "cancel": "Annuler",
+    "save": "Enregistrer",
+    "errorapi": "L'échange avec l'api n'a pas abouti.",
+    "errorlink": "Le lien fourni n'est ni un lien Flicker, ni un lien vimeo.",
+    "add": "Ajouter",
+    "createplaceholder": "Collez ici un lien venant de Flickr ou de Viméo",
+    "link": "Lien"
 }
